@@ -8,7 +8,8 @@ public interface IClientService {
     List<Client> getAll();
     Client getById(Long id);
 
-    void save(Client client);
+    void register(Client client);
 
     void remove(Long id);
+
 }
