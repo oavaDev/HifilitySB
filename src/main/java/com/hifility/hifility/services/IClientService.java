@@ -12,5 +12,4 @@ public interface IClientService {
 
     void remove(Long id);
 
-    boolean login(Client client) throws Exception;
 }

@@ -32,17 +32,7 @@ public class ClientService implements IClientService{
         repository.deleteById(id);
     }
 
-    @Override
-    public boolean login(Client client) throws Exception {
-        if(repository.findByEmail(client.getEmail()) != null) {
-            Optional<Client> auth = Optional.ofNullable(repository.findByEmail(client.getEmail()));
-            if (auth.get().getPassword().equals(client.getPassword())){
-                return true;
-            } else {
-                throw new Exception("There was an error on login");
-            }
-        }
-        return true;
-    }
+
+
 
 }

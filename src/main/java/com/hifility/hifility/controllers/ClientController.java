@@ -3,6 +3,8 @@ package com.hifility.hifility.controllers;
 import com.hifility.hifility.entities.Client;
 import com.hifility.hifility.services.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.*;
@@ -30,18 +32,10 @@ public class ClientController  {
         }else if(!client.getEmail().matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")){
             throw new Exception("Ingrese un Email válido");
         }
+        client.setPassword(new BCryptPasswordEncoder().encode(client.getPassword()));
         service.register(client);
     }
 
-    @PostMapping("/api/auth/login")
-    public void login(@RequestBody Client client) throws Exception {
-        try{
-            service.login(client);
-        }catch(Exception e){
-            throw new Exception(e);
-        }
-
-    }
 
     @DeleteMapping("/api/clients/{id}")
     public void delete(@PathVariable String id){
