@@ -24,7 +24,6 @@ public class ClientController  {
     public Client getById(@PathVariable String id) {
         return service.getById(Long.parseLong(id));
     }
-
     @PostMapping("/api/auth/register")
     public void register(@RequestBody Client client) throws Exception {
         if(client.getEmail().isEmpty()){
