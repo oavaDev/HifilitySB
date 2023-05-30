@@ -17,6 +17,9 @@ public class UserDetailsImpl implements UserDetails {
         return Collections.emptyList();
     }
 
+    public String getId() {
+        return String.valueOf(client.getId());
+    }
     @Override
     public String getPassword() {
         return client.getPassword();

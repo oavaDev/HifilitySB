@@ -3,7 +3,6 @@ package com.hifility.hifility.services;
 import com.hifility.hifility.entities.Client;
 import com.hifility.hifility.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.ClassEditor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +20,9 @@ public class ClientService implements IClientService{
     public Client getById(Long id) {
         return (Client) repository.findById(id).get();
     }
-
+    public Optional<Client> getByEmail(String email){
+        return repository.findByEmail(email);
+    }
     @Override
     public void register(Client client) {
         repository.save(client);

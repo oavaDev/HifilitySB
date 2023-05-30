@@ -1,15 +1,14 @@
 package com.hifility.hifility.controllers;
 
 import com.hifility.hifility.entities.Client;
+import com.hifility.hifility.repository.ClientRepository;
 import com.hifility.hifility.services.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.*;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @RestController
@@ -19,6 +18,11 @@ public class ClientController  {
     @GetMapping("/api/clients")
     public List<Client> getAll (){
        return service.getAll();
+    }
+
+    @GetMapping("/api/clients/email/{email}")
+    public Optional<Client> getByEmail(@PathVariable String email) {
+        return service.getByEmail(email);
     }
     @GetMapping("/api/clients/{id}")
     public Client getById(@PathVariable String id) {
