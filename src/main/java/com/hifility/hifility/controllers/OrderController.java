@@ -15,11 +15,19 @@ public class OrderController {
     public List<Order> getAll (){
         return service.getAll();
     }
-    /**@GetMapping("/api/orders/{id}")
-   public Optional<List> getOrderByClientId(@PathVariable String id) {
-        return service.getOrderByClientId(id);
+
+    @GetMapping("/api/orders/{id}")
+    public Optional<Order> getOrderById (@PathVariable String id) {
+        return service.getOrderById(id);
     }
-**/
 
-
+   /** @GetMapping("/api/orders/client/{id}")
+    public Optional<List> getOrdersByClientId(@PathVariable String id) {
+        return Optional.ofNullable(service.getOrderByClientId(id));
+    }
+    **/
+    @GetMapping("/api/orders/client/{id}")
+    public Optional<List> getOrderDetailsByClientId(@PathVariable String id) {
+        return service.getOrderDetailsById(id);
+    }
 }

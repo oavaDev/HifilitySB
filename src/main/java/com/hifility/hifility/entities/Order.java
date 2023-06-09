@@ -9,12 +9,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Order {
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orderId")
     private Long orderId;
 
-    @Column(name = "clientId")
+
     private Long clientId;
 
     private String date;

@@ -3,12 +3,14 @@ package com.hifility.hifility.services;
 import com.hifility.hifility.entities.Order;
 import com.hifility.hifility.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@ComponentScan
 public class OrderService  implements IOrderService{
     @Autowired
     private OrderRepository repository;
@@ -17,9 +19,16 @@ public class OrderService  implements IOrderService{
         return (List<Order>) repository.findAll();
     }
 
-   /** @Override
-    public Optional<List> getOrderByClientId(String id) {
-        return Optional.ofNullable(repository.getClientOrders(Long.valueOf(id)));
+    public Optional<Order> getOrderById(String id) {
+        return repository.findById(Long.valueOf(id));
     }
-    **/
+
+    /**@Override
+    public List<Object[]> getOrderByClientId(String id) {
+        return repository.getOrderByClientId(Long.valueOf(id));
+    }
+     **/
+    public Optional<List> getOrderDetailsById(String id) {
+        return Optional.ofNullable(repository.getOrderDetailsById(Long.valueOf(id)));
+    }
 }

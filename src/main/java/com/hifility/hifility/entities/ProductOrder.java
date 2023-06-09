@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "product_order")
+@Table(name = "products_order")
 @Getter
 @Setter
 public class ProductOrder {
@@ -20,4 +20,3 @@ public class ProductOrder {
     @Column(name = "quantity")
     private String quantity;
 }
-

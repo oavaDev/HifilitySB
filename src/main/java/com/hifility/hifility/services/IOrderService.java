@@ -7,7 +7,8 @@ import java.util.Optional;
 
 public interface IOrderService {
     List<Order> getAll();
+    Optional<Order> getOrderById(String id);
 
-    //Optional<List> getOrderByClientId(String id);
-
+    //List<Object[]> getOrderByClientId(String id);
+    Optional<List> getOrderDetailsById(String id);
 }
