@@ -1,24 +1,30 @@
 package com.hifility.hifility.repository;
 
 import com.hifility.hifility.entities.Order;
+import net.minidev.json.JSONUtil;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface OrderRepository extends CrudRepository<Order, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 
-   @Query("SELECT c.name AS client_name, o.orderId, o.date, p.name AS product_name, po.quantity\n" +
+   @Query("SELECT c.name AS client_name, o.orderId, o.date, o.status, p.name AS product_name, po.quantity\n" +
            "FROM Client c\n" +
            "JOIN Order o ON c.Id = o.clientId\n" +
            "JOIN ProductOrder po ON o.orderId = po.orderId\n" +
            "JOIN Product p ON po.productId = p.Id\n" +
-           "WHERE c.Id = :clientId")
-   List<Object[]> getOrderDetailsById(Long clientId);
+           "WHERE c.Id = :clientId AND o.orderId = :orderId")
+   List<Object[]> getOrderDetailsByOrderId(Long clientId,Long orderId);
 
-   /**@Query(
-           value = "SELECT * FROM Order where clientId = :clientId;",
-           nativeQuery = true)
-   List<Object[]> getOrderByClientId(Long clientId);
-   **/
+   @Query("SELECT o FROM Order o where o.clientId = :clientId")
+   List<Object[]> getOrdersByClientId(Long clientId);
+
+   @Modifying
+   @Query("UPDATE Order o SET o.status = :status WHERE o.clientId = :clientId AND o.orderId = :orderId")
+   void updateOrderStatus(@Param("clientId") Long clientId, @Param("orderId") Long orderId, @Param("status") Long status);
+
+
    }

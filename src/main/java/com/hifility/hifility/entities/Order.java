@@ -17,4 +17,6 @@ public class Order {
     private Long clientId;
 
     private String date;
+
+    private Long status;
 }

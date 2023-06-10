@@ -9,6 +9,8 @@ public interface IOrderService {
     List<Order> getAll();
     Optional<Order> getOrderById(String id);
 
-    //List<Object[]> getOrderByClientId(String id);
-    Optional<List> getOrderDetailsById(String id);
+    Optional<List> getOrdersByClientId(String id);
+    Optional<List> getOrderDetailsByOrderId(String clientId,String orderId);
+    void updateOrderStatus(String clientId, String orderId, String newStatus);
+
 }
