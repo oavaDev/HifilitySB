@@ -1,6 +1,8 @@
 package com.hifility.hifility.services;
 
+import com.hifility.hifility.entities.Client;
 import com.hifility.hifility.entities.Order;
+import com.hifility.hifility.repository.ClientRepository;
 import com.hifility.hifility.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +17,37 @@ import java.util.Optional;
 public class OrderService  implements IOrderService{
     @Autowired
     private OrderRepository repository;
+    private ClientRepository clientRepository;
+
+    public OrderService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
+
     @Override
     public List<Order> getAll() {
         return (List<Order>) repository.findAll();
     }
+
+    @Override
+    public Order createOrder(String clientId, String status) {
+        Long clientIdLong = Long.valueOf(clientId);
+        java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
+        Order order = new Order();
+        order.setClientId(clientIdLong);
+        order.setStatus(Long.valueOf(status));
+        order.setDate(String.valueOf(date));
+
+        return repository.save(order);
+    }
+
     @Override
     public Optional<Order> getOrderById(String id) {
         return repository.findById(Long.valueOf(id));
+    }
+
+    @Override
+    public Optional<Order> findOrder(Long id) {
+        return repository.findById(id);
     }
 
     @Override

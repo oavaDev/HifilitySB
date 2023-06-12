@@ -2,7 +2,6 @@ package com.hifility.hifility.controllers;
 
 import com.hifility.hifility.entities.Order;
 import com.hifility.hifility.services.IOrderService;
-import jakarta.persistence.PostUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +27,20 @@ public class OrderController {
 
     @GetMapping("/api/orders/client/{id}")
     public Optional<List> getOrdersByClientId(@PathVariable String id) {
-        return Optional.ofNullable(Collections.singletonList(service.getOrdersByClientId(id)));
+        return service.getOrdersByClientId(id);
     }
     @GetMapping("/api/orders/{clientId}/details/{orderId}")
     public Optional<List> getOrderDetailsByOrderId(@PathVariable String clientId, @PathVariable String orderId) {
         return Optional.ofNullable(Collections.singletonList(service.getOrderDetailsByOrderId(clientId,orderId)));
     }
 
+    @PostMapping("/api/order")
+    public Optional<Order> createOrder(@RequestBody Map<String,Object> requestBody){
+            String clientId = (String) requestBody.get("clientId");
+            String status = (String) requestBody.get("status");
+            Order order = service.createOrder(clientId, status);
+        return Optional.ofNullable(order);
+    }
     @PutMapping("/api/order/status")
     public ResponseEntity<String> updateOrderStatus(@RequestBody Map<String, Object> requestBody) {
         try {

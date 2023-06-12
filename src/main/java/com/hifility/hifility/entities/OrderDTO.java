@@ -6,7 +6,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class OrderDetailsDTO {
+public class OrderDTO {
     private Long orderId;
     private Long clientId;
     private String date;
