@@ -1,7 +1,6 @@
 package com.hifility.hifility.controllers;
 
 import com.hifility.hifility.entities.Client;
-import com.hifility.hifility.repository.ClientRepository;
 import com.hifility.hifility.services.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

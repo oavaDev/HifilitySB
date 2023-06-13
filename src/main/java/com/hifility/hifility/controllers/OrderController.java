@@ -33,8 +33,7 @@ public class OrderController {
     public Optional<List> getOrderDetailsByOrderId(@PathVariable String clientId, @PathVariable String orderId) {
         return Optional.ofNullable(Collections.singletonList(service.getOrderDetailsByOrderId(clientId,orderId)));
     }
-
-    @PostMapping("/api/order")
+    @PostMapping("/api/order/create")
     public Optional<Order> createOrder(@RequestBody Map<String,Object> requestBody){
             String clientId = (String) requestBody.get("clientId");
             String status = (String) requestBody.get("status");

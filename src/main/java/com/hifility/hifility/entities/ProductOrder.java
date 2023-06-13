@@ -18,5 +18,5 @@ public class ProductOrder {
     private Long productId;
 
     @Column(name = "quantity")
-    private String quantity;
+    private Long quantity;
 }

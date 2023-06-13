@@ -1,14 +1,16 @@
 package com.hifility.hifility.services;
 
-import com.hifility.hifility.entities.Client;
+import com.hifility.hifility.entities.Credit;
 import com.hifility.hifility.entities.Order;
-import com.hifility.hifility.repository.ClientRepository;
+import com.hifility.hifility.entities.OrderDetailsDTO;
 import com.hifility.hifility.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,15 +19,10 @@ import java.util.Optional;
 public class OrderService  implements IOrderService{
     @Autowired
     private OrderRepository repository;
-    private ClientRepository clientRepository;
-
-    public OrderService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
 
     @Override
     public List<Order> getAll() {
-        return (List<Order>) repository.findAll();
+        return repository.findAll();
     }
 
     @Override
@@ -46,14 +43,10 @@ public class OrderService  implements IOrderService{
     }
 
     @Override
-    public Optional<Order> findOrder(Long id) {
-        return repository.findById(id);
-    }
-
-    @Override
     public Optional<List> getOrdersByClientId(String id) {
         return Optional.ofNullable(repository.getOrdersByClientId(Long.valueOf(id)));
     }
+
     @Override
     public Optional<List> getOrderDetailsByOrderId(String clientId, String orderId) {
         return Optional.ofNullable(repository.getOrderDetailsByOrderId(Long.valueOf(clientId),Long.valueOf(orderId)));
